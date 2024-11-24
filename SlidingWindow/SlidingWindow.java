@@ -29,6 +29,37 @@ public class SlidingWindow {
         }
     }
 
+    public int[] smallestHousingWindow(int[] plots, int n, int targetSum) {
+        int i = 0, j = 0;
+        int currentSum = 0;
+        int[] smallestWin = new int[] {-1, -1};
+        int smallestWinSize = Integer.MAX_VALUE;
+
+        while(j < n) {
+
+            // add the current jth plot area
+            // keep expanding
+            currentSum += plots[j];
+            j++;
+
+            // contraction condition
+            while(currentSum > targetSum && i < j) {
+                // subtract the removed element
+                currentSum -= plots[i];
+                //move forward
+                i++;
+            }
+
+            if(currentSum == targetSum && smallestWinSize > (j - i - 1)) {
+                smallestWin[0] = i;
+                smallestWin[1] = j - 1;
+                smallestWinSize = j - i - 1;
+            }
+        }
+
+        return smallestWin;
+    }
+
     public String uniqueSubstring(String str) {
         // to store characters and their last occurence within the ongoing window
         HashMap<Character, Integer> charMap = new HashMap<>();
@@ -180,6 +211,11 @@ public class SlidingWindow {
         sw.housing(plots, n, k);
 
         // Problem 1.1 : Housing follow up - smallest window, handling negative integers in the array
+
+        int[] smallestRangeOfPlots = sw.smallestHousingWindow(plots, n, k);
+        System.out.println("Smallest plot sequence with given size: " + smallestRangeOfPlots[0] + ", " + smallestRangeOfPlots[1]);
+
+        // with negative int
 
         // Problem 2 : Largest Unique Substring
 
