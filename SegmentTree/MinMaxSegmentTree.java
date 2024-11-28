@@ -41,23 +41,20 @@ public class MinMaxSegmentTree {
 
     public void updateValue(int arr[], int i, int newVal) {
         if(i < 0 || i > size - 1) return;
-
-        int diff = newVal - arr[i];
         arr[i] = newVal;
-
-        update(0, 0, size - 1, i, diff);
+        update(0, 0, size - 1, i, newVal);
     }
 
-    private void update(int currIdx, int stLeft, int stRight, int pos, int diff) {
+    private void update(int currIdx, int stLeft, int stRight, int pos, int val) {
         // no overlap
         if(pos > stRight || pos < stLeft) return;
 
-        tree[currIdx] += diff;
+        tree[currIdx] = Math.min(val, tree[currIdx]);
 
         if(stLeft != stRight) {
             int mid = (stLeft + stRight) / 2;
-            update(2*currIdx + 1, stLeft, mid, pos, diff);
-            update(2*currIdx + 2, mid + 1, stRight, pos, diff);
+            update(2*currIdx + 1, stLeft, mid, pos, val);
+            update(2*currIdx + 2, mid + 1, stRight, pos, val);
         }
     }
 
@@ -68,10 +65,10 @@ public class MinMaxSegmentTree {
         int rangeMin = st.getMin(0, 5, 2, 4, 0);
         System.out.println("The min in give range: " + rangeMin);
 
-        //st.updateValue(arr, 3, 14);
+        st.updateValue(arr, 3, 4);
         System.out.println("The min in entire array: " + st.tree[0]);
 
-        // int rangeSumUpdated = st.getSum(0, 5, 2, 4, 0);
-        // System.out.println("The sum in give range: " + rangeSumUpdated);
+        int rangeMinUpdated = st.getMin(0, 5, 2, 4, 0);
+        System.out.println("The min in give range: " + rangeMinUpdated);
     }
 }
