@@ -1,0 +1,40 @@
+/*
+84. Largest Rectangle in Histogram
+https://leetcode.com/problems/largest-rectangle-in-histogram/description/
+*/
+
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        int n = heights.length;
+        int ans = 0;
+        Stack<Integer> s = new Stack();
+        // we will push -1 in stack, to take care of boundary index calc
+        // -1 < 0, hence we use -1
+        s.push(-1);
+
+        for(int i = 0; i < n; i++) {
+            while(s.peek() != -1 && heights[i] < heights[s.peek()]) {
+                int height = heights[s.pop()];
+                // we calculate width including until the current index
+                // because the curr idx is violating the stack rule
+                // curr index width is not included here
+                // and we take length until the previous smaller idx of popped + 1
+                int width = i - (s.peek() + 1);
+                ans = Math.max(ans, width * height);
+            }
+            // after all pops, we push current idx, 
+            // till stack elements become increasing
+            s.push(i);
+        }
+
+        while(s.peek() != -1) {
+            int cH = heights[s.pop()];
+            // this time last bar is included in area
+            // we calculate until previous smaller idx
+            int cW = n - (s.peek() + 1);
+            ans = Math.max(ans, cH * cW);
+        }
+
+        return ans;
+    }
+}

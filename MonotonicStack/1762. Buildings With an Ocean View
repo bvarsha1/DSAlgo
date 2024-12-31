@@ -1,0 +1,30 @@
+/*
+1762. Buildings With an Ocean View
+https://leetcode.com/problems/buildings-with-an-ocean-view/description/
+*/
+
+class Solution {
+    public int[] findBuildings(int[] heights) {
+        int n = heights.length;
+        Stack<Integer> s = new Stack();
+
+        // ocean is on the right
+        // we will validate buildings from right to left
+        for(int i = n - 1; i >= 0; i--) {
+            // we only have to check, if the height of curr building
+            // is greater than building on stack top
+            // we are tracking buildings if they have ocean view
+            if(s.isEmpty() || heights[s.peek()] < heights[i]) {
+                s.push(i);
+            }
+        }
+
+        // result is reverse of stack
+        int[] ans = new int[s.size()];
+        for(int i = 0; i < ans.length ; i++) {
+            ans[i] = s.pop();
+        }
+
+        return ans;
+    }
+}
