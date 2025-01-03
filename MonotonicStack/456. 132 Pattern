@@ -1,0 +1,25 @@
+/*
+456. 132 Pattern
+https://leetcode.com/problems/132-pattern/description/
+*/
+
+class Solution {
+    public boolean find132pattern(int[] nums) {
+        Stack<int[]> stack = new Stack();
+        int currMin = nums[0];
+
+        for(int i = 1; i < nums.length; i++) {
+            while(!stack.isEmpty() && stack.peek()[0] <= nums[i]) {
+                stack.pop();
+            }
+            // find an element in stack which is not popped above
+            // it means that element is lesser than that element (j)
+            // it means it should be greater than min at index 1 of peek() (i)
+            if(!stack.isEmpty() && nums[i] > stack.peek()[1]) return true;
+            stack.push(new int[] {nums[i], currMin});
+            currMin = Math.min(currMin, nums[i]);
+        }
+
+        return false;
+    }
+}
