@@ -127,7 +127,7 @@ public class Sorting {
 
     public int quickSelect(int[] arr, int s, int e, int k) {
         // base case
-        if(s >= e)
+        if(s > e)
             return -1;
 
         // recursive case

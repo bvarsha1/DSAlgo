@@ -266,6 +266,19 @@ public class DynamicProgramming {
         return dp[n-1];
     }
 
+    public int maxNonAdjSumOpt(int[] arr) {
+        int n = arr.length;
+        int r1 = 0, r2 = 0;
+
+        for(int i = 0; i < n; i++) {
+            int r3 = Math.max(arr[i] + r1, r2);
+            r1 = r2;
+            r2 = r3;
+        }
+
+        return r2;
+    }
+
     public int lisTD(int[] arr) {
         int[] dp = new int[arr.length];
         Arrays.fill(dp, 0);
@@ -429,6 +442,7 @@ public class DynamicProgramming {
         Arrays.fill(dpArr6, 0);
         System.out.println("Max non-adjacent sum from array (top down dp)  : " + dp.maxNonAdjSumTD(arr, arr.length, 0, dpArr6));
         System.out.println("Max non-adjacent sum from array (bottom up dp) : " + dp.maxNonAdjSumBU(arr));
+        System.out.println("Max non-adjacent sum from array (bottom up optimized) : " + dp.maxNonAdjSumOpt(arr));
 
         // Problem 7 : Longest increasing subsequence
         int[] arr2 = {50, 4, 10, 8, 30, 100};
