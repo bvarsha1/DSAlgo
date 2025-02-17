@@ -11,19 +11,19 @@ import java.util.TreeSet;
 public class AlienSignals {
 	public List<Integer> validSignals(int[] a, int[] b, int lag) {
 		int m = a.length, n = b.length;
-        if(m == 0 || n == 0) return new ArrayList<>();
+		if(m == 0 || n == 0) return new ArrayList<>();
 		HashMap<Integer, TreeSet<Integer>> aMap = new HashMap<>();
 
 		for(int i = 0; i < m; i++) {
-			if(a[i] != 0) {
-                aMap.putIfAbsent(a[i], new TreeSet<>());
-			    aMap.get(a[i]).add(i);
-            }
+		if(a[i] != 0) {
+			aMap.putIfAbsent(a[i], new TreeSet<>());
+			aMap.get(a[i]).add(i);
+		}
 		}
 
 		Set<Integer> ans = new HashSet<>();
 		for(int i = 0; i < b.length; i++) {
-            if(b[i] == 0) continue;
+			if(b[i] == 0) continue;
 			Integer candidate = null;
 			if(aMap.containsKey(b[i])) candidate = aMap.get(b[i]).ceiling(i - lag);
 			if(candidate != null && candidate <= i + lag) ans.add(candidate);
