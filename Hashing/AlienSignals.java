@@ -15,10 +15,10 @@ public class AlienSignals {
 		HashMap<Integer, TreeSet<Integer>> aMap = new HashMap<>();
 
 		for(int i = 0; i < m; i++) {
-		if(a[i] != 0) {
-			aMap.putIfAbsent(a[i], new TreeSet<>());
-			aMap.get(a[i]).add(i);
-		}
+			if(a[i] != 0) {
+				aMap.putIfAbsent(a[i], new TreeSet<>());
+				aMap.get(a[i]).add(i);
+			}
 		}
 
 		Set<Integer> ans = new HashSet<>();
@@ -32,12 +32,12 @@ public class AlienSignals {
 		return new ArrayList<>(ans);
 	}
 
-    public static void main(String[] args) {
-        AlienSignals as = new AlienSignals();
+	public static void main(String[] args) {
+		AlienSignals as = new AlienSignals();
 
-        int[] a = {0, 0, 20, 30, 38, 2, 0, 0, 0, 12}, b = {0, 0, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12};
-        int lag = 2;
-        List<Integer> ans = as.validSignals(a, b, lag);
-        for(int i : ans) System.out.println(i);
-    }
+		int[] a = {0, 0, 20, 30, 38, 2, 0, 0, 0, 12}, b = {0, 0, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12};
+		int lag = 2;
+		List<Integer> ans = as.validSignals(a, b, lag);
+		for(int i : ans) System.out.println(i);
+	}
 }
